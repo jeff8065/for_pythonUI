@@ -76,6 +76,24 @@ function GoogleDriveDownload()
 
 
 }
+function CheckOpenJdk()
+{
+	if [ $ubuntuVersion == '18.04' ] || [ $ubuntuVersion == '16.04' ] ;then
+	opjdk11=$(update-java-alternatives -l | grep java-1.11.0-openjdk-amd64)
+		if [ "$opjdk11" == "" ];then
+		echo "1"| sudo -S  apt -y install openjdk-11-jdk
+		fi
+	elif [ $ubuntuVersion == '14.04' ] ;then
+	opjdk11=$(update-java-alternatives -l | grep java-1.11.0-openjdk-amd64)
+		if [ "$opjdk11" == "" ];then
+		echo "1"| sudo -S  add-apt-repository ppa:openjdk-r/ppa
+		echo "1"| sudo -S  apt-get update
+		echo "1"| sudo -S  apt-get -y install openjdk-11-jdk
+		fi
+
+	
+	fi
+}
 
 
 function Sync_CTSUI()
