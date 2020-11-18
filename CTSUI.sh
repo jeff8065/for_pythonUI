@@ -1,6 +1,6 @@
 #!/bin/bash
 version=$"20201112"
-#111111111111111111111111
+#add git
 pc=$(whoami)
 SFTP_SERVER="ftp.pegatroncorp.com"
 SFTP_USER="FTP_vendorV751-RW"
@@ -13,7 +13,19 @@ chmod 755 /home/$home/CTSUI.sh
 cp -r /CTS_tool/for_pythonUI/CTSUI.sh /home/$home/Desktop
 chmod 755 /home/$home/Desktop/CTSUI.sh
 
+function gitsync()
+{
+	cd /CTS_tool/for_pythonUI
+	git init
+	git remote add origin https://github.com/jeff8065/for_pythonUI.git
+	echo "	git remote add origin https://github.com/jeff8065/for_pythonUI.git"
+	git pull -all 
+	echo "	git pull -all "
+	git checkout remotes/origin/main
+	echo "	git checkout remotes/origin/main"
 
+
+}
 function checkversion()
 {
 	cd /CTS_tool/for_pythonUI
@@ -146,6 +158,7 @@ function MediaLocal()
 ###############################
 ######################
 #GoogleDriveDownload
-checkversion
+#checkversion
+gitsync
 CheckOpenJdk
 Sync_CTSUI
