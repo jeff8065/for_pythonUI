@@ -1,6 +1,6 @@
 #!/bin/bash
 version=$"20201112"
-#testtest
+#111111111111111111111111
 pc=$(whoami)
 SFTP_SERVER="ftp.pegatroncorp.com"
 SFTP_USER="FTP_vendorV751-RW"
