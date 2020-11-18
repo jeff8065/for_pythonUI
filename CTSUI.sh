@@ -1,6 +1,6 @@
 #!/bin/bash
 version=$"20201112"
-#add gitsync
+#add gitsyncss
 pc=$(whoami)
 SFTP_SERVER="ftp.pegatroncorp.com"
 SFTP_USER="FTP_vendorV751-RW"
