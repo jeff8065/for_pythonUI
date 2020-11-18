@@ -1,6 +1,6 @@
 #!/bin/bash
 version=$"20201112"
-#add gitsyncss
+#add 
 pc=$(whoami)
 SFTP_SERVER="ftp.pegatroncorp.com"
 SFTP_USER="FTP_vendorV751-RW"
@@ -19,7 +19,7 @@ function gitsync()
 	git init
 	git remote add origin https://github.com/jeff8065/for_pythonUI.git
 	echo "	git remote add origin https://github.com/jeff8065/for_pythonUI.git"
-	git fetch --all 
+	git pull --all 
 	echo "	git pull -all "
 	git checkout -f remotes/origin/main
 	echo "	git checkout remotes/origin/main"
