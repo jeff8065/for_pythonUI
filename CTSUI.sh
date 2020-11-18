@@ -19,9 +19,9 @@ function gitsync()
 	git init
 	git remote add origin https://github.com/jeff8065/for_pythonUI.git
 	echo "	git remote add origin https://github.com/jeff8065/for_pythonUI.git"
-	git pull -all 
+	git fetch --all 
 	echo "	git pull -all "
-	git checkout remotes/origin/main
+	git checkout -f remotes/origin/main
 	echo "	git checkout remotes/origin/main"
 
 
