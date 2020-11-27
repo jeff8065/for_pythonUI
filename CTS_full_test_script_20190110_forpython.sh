@@ -52,16 +52,20 @@ function serialAndToolToArray(){
 		;; 
 
 	        s)
+		
+		echo "device: "
+		
 		  for var in ${OPTARG}
 		  do
 			eval serial$i="$var"
 			eval serialArray+=("$"serial$i)
 			
-			eval echo ${serialArray[$i]}
+			eval echo  ${serialArray[$i]}
 			
 			i=$((i+1))
 			countDevice=$i
-			echo $countDevice
+#			echo $countDevice
+			
 		  done	 
 		;;
 	
@@ -75,7 +79,7 @@ function serialAndToolToArray(){
 		do
 			serial_options+=("-s")
 			eval serial_options+=("$"serial$((i-1)))
-			echo ${serial_options[@]}
+#			echo ${serial_options[@]}
 			
 		done
 	brand=$(adb -s ${serialArray[$1]} shell getprop ro.product.brand | sed 's/\r//' )
@@ -113,13 +117,13 @@ function CTSDIRECTORY_python(){
 	## follow android version unzip correct tool , mkdir result folder 
 
 	echo " "
-	echo '*********************Device information and CTS tool unzip*********************'
+	#echo '*********************Device information and CTS tool unzip*********************'
 
 	deviceCpuType=$(adb -s  ${serialArray[$1]} shell getprop ro.product.cpu.abi | sed 's/arm.*/arm/'  | sed 's/x86.*/x86/' )
 
 	if	 [ $deviceCpuType == "x86" ];then
 		cpuType="x86"
-		echo "This device is x86 cpu"
+	#	echo "This device is x86 cpu"
 	elif 	 [ $deviceCpuType == "arm" ];then
 		cpuType="arm"
 	else	
@@ -127,25 +131,25 @@ function CTSDIRECTORY_python(){
 		endScript "2"
 	fi
 
-	androidVersion=$(adb -s ${serialArray[$1]} shell getprop ro.build.version.release | sed 's/4.4.*/4.4/' | sed 's/5.0.*/5.0/' | sed 's/5.1.*/5.1/' |sed 's/6.0.*/6.0/'| sed 's/7.0.*/7.0/' | sed 's/7.1.*/7.1/' | sed 's/8.0.*/8.0/' | sed 's/8.1.*/8.1/' | sed 's/9.0.*/9.0/')
+	androidVersion=$(adb -s ${serialArray[$1]} shell getprop ro.build.version.release | sed 's/4.4.*/4.4/' | sed 's/5.0.*/5.0/' | sed 's/5.1.*/5.1/' |sed 's/6.0.*/6.0/'| sed 's/7.0.*/7.0/' | sed 's/7.1.*/7.1/' | sed 's/8.0.*/8.0/' | sed 's/8.1.*/8.1/' | sed 's/9.0.*/9.0/'| sed 's/10.0*/10.0/' | sed 's/11.0*/11.0/')
 
-	echo "This device android verision is" $androidVersion
+#	echo "This device android verision is" $androidVersion
 
 
-	echo "Your Brand name is $brand"
-	echo "Your Device name is $name"	
+#	echo "Your Brand name is $brand"
+#	echo "Your Device name is $name"	
 
 	if [ ${androidVersion:0:1} == "9" ];then
 		androidVersion="9.0"
 	fi
-	echo Folder name is $name
-	echo TooolVersion is "${version[1]}"
-	echo "please check your tool version !!!"
+#	echo Folder name is $name
+	echo Folder  :   /3pl_report/cts/"${version[1]}"/$brand/$name
+#	echo "please check your tool version !!!"
 
 	mkdir -p /3pl_report/cts/"${version[1]}"/$brand/$name
 
 	echo --------------------------
-	echo CTS tool version is "${version[1]}"
+#	echo CTS tool version is "${version[1]}"
 	echo "unzipping..."	
 	if ! unzip -o -q /CTS_tool/$androidVersion/android-cts-"${version[1]}"-linux_x86-$cpuType.zip -d /3pl_report/cts/"${version[1]}"/$brand/$name ;then
 		echo "***unzip fail, please check file***"
@@ -181,7 +185,7 @@ function CTSDIRECTORY(){
 		endScript "2"
 	fi
 
-	androidVersion=$(adb -s $serial1 shell getprop ro.build.version.release | sed 's/4.4.*/4.4/' | sed 's/5.0.*/5.0/' | sed 's/5.1.*/5.1/' |sed 's/6.0.*/6.0/'| sed 's/7.0.*/7.0/' | sed 's/7.1.*/7.1/' | sed 's/8.0.*/8.0/' | sed 's/8.1.*/8.1/' | sed 's/9.0.*/9.0/')
+	androidVersion=$(adb -s $serial1 shell getprop ro.build.version.release | sed 's/4.4.*/4.4/' | sed 's/5.0.*/5.0/' | sed 's/5.1.*/5.1/' |sed 's/6.0.*/6.0/'| sed 's/7.0.*/7.0/' | sed 's/7.1.*/7.1/' | sed 's/8.0.*/8.0/' | sed 's/8.1.*/8.1/' | sed 's/9.0.*/9.0/' | sed 's/10.0.*/10.0/' | sed 's/11.0.*/11.0/')
 
 	echo "This device android verision is" $androidVersion
 
@@ -210,8 +214,10 @@ function CTSDIRECTORY(){
 		toolVersion=$androidVersion"_r"$cts8_0
 	elif [ $androidVersion == "8.1" ];then
 		toolVersion=$androidVersion"_r"$cts8_1
-	elif [ $androidVersion == "10" ];then
+	elif [ $androidVersion == "10.0" ];then
 		toolVersion=$androidVersion"_r"$cts10_0
+	elif [ $androidVersion == "11.0" ];then
+		toolVersion=$androidVersion"_r"$cts11_0
 	elif [ ${androidVersion:0:1} == "9" ];then
 		androidVersion="9.0"
 		toolVersion=$androidVersion"_r"$cts9_0
@@ -266,11 +272,12 @@ function CtsSettings(){
 
 function CopyApks(){
 
+
+	if [ "$androidVersion" == "7.0" ] || [ "$androidVersion" == "7.1" ] || [ "$androidVersion" == "8.0" ] || [ "$androidVersion" == "8.1" ] || [ "$androidVersion" == "9.0"|| [ "$androidVersion" == "10" ]|| [ "$androidVersion" == "11" ] ;then
 	echo " "
-	echo "*********************************************Copy CTS DEVICE ADMIN APK********************************************"
-	if [ "$androidVersion" == "7.0" ] || [ "$androidVersion" == "7.1" ] || [ "$androidVersion" == "8.0" ] || [ "$androidVersion" == "8.1" ] || [ "$androidVersion" == "9.0"|| [ "$androidVersion" == "10" ] ;then
-		echo ''
+
 	else
+	echo "*********************************************Copy CTS DEVICE ADMIN APK********************************************"
 		for((i=0;i<countDevice;i=i+1))
 		do
 			adb -s ${serialArray[$i]} install  -r /3pl_report/cts/$toolVersion/$brand/$name/android-cts/repository/testcases/CtsDeviceAdmin.apk 
@@ -309,8 +316,8 @@ function SelectLauncher(){
 
 function CTS(){
 
-	echo " "
-	echo "************************************************Launch CTS*********************************************************"
+	echo "****************************************************Done***********************************************************"
+#	echo "************************************************Launch CTS*********************************************************"
 	if [ $androidVersion == "7.0" ]  || [ $androidVersion == "7.1" ] ;then
 		cd /3pl_report/cts/"${version[1]}"/$brand/$name/android-cts/tools
 		 x-terminal-emulator -T $name -e ./cts-tradefed run cts ${serial_options[@]} --shards $countDevice --disable-reboot --skip-preconditions  --exclude-filter CtsAppSecurityHostTestCases
@@ -325,6 +332,10 @@ function CTS(){
 	elif [ $androidVersion == "10" ] ;then
 		cd /3pl_report/cts/"${version[1]}"/$brand/$name/android-cts/tools
 		x-terminal-emulator -T $name"_CTS_""${version[1]}" -e ./cts-tradefed run cts --shard-count $countDevice ${serial_options[@]}   --skip-preconditions --module-arg CtsMediaTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaStressTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaBitstreamsTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5
+	elif [ $androidVersion == "11" ] ;then
+		cd /3pl_report/cts/"${version[1]}"/$brand/$name/android-cts/tools
+		x-terminal-emulator -T $name"_CTS_""${version[1]}" -e ./cts-tradefed run cts --shard-count $countDevice ${serial_options[@]}   --skip-preconditions --module-arg CtsMediaTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaStressTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaBitstreamsTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5
+
 
 	elif [ $androidVersion == "6.0" ];then
 		cd /3pl_report/cts/"${version[1]}"/$brand/$name/android-cts/tools
@@ -341,12 +352,12 @@ function compareFingerPrint(){
 	#input finger print
 	#read -p "please input your fingerprint:" fingerPrint
 	fingerPrint=$(adb -s  ${serialArray[$1]} shell getprop | grep "\[ro.build.fingerprint\]" | sed 's/\[ro.build.fingerprint\]: \[//' | sed 's/\].*//')
-	echo 	$fingerPrint
+	#echo 	$fingerPrint
 	for((i=0;i<countDevice;i=i+1))
 	do
 		#capture device finger print 
 		deviceFingerPrint=$(adb -s  ${serialArray[$i]} shell getprop | grep "\[ro.build.fingerprint\]" | sed 's/\[ro.build.fingerprint\]: \[//' | sed 's/\].*//')
-		echo 	$deviceFingerPrintp[$i]	
+	#	echo 	$deviceFingerPrintp[$i]	
 		if echo $deviceFingerPrint[$i] | grep -ni 'user/release-keys'; then
 			    echo ""
 			else
@@ -449,6 +460,11 @@ function changeJavaVersion(){
 		if [ "$now_PC_JavaVersion" != "1.8" ];then
 			echo "Change java version to 1.8"
 			echo $password | sudo -S update-java-alternatives --set java-1.8.0-openjdk-amd64
+		fi
+	elif [ "$device_Java_Version" == "11" ];then
+		if [ "$now_PC_JavaVersion" != "1.11" ];then
+			echo "Change java version to 1.11	"
+			echo $password | sudo -S update-java-alternatives --set java-1.11.0-openjdk-amd64
 		fi
 	fi
 	java -version
@@ -752,7 +768,7 @@ echo "is running dir :" $checkIsRunningDirectory
 
 
 
-serialAndToolToArray "$@"
+serialAndToolToArray "$@" 
 #MultiSerial
 CTSDIRECTORY_python
 changeJavaVersion
@@ -763,7 +779,7 @@ CopyApks
 #LaunchChrome
 #SelectLauncher
 CopyMedia
-CtsSettings
+#CtsSettings
 CTS
 #createAck
 #reCopyMedia_function
