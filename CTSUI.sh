@@ -164,6 +164,22 @@ function MediaLocal()
 
 }
 
+function waiting()
+{
+    i=0
+    while [ $i -le 100 ]
+    do
+        for j in '\\' '|' '/' '-'
+        do
+            printf "\t\t\t\t%c%c%c%c%c  waiting %c%c%c%c%c\r" \
+            "$j" "$j" "$j" "$j" "$j" "$j" "$j" "$j" "$j" "$j"
+            sleep 0.1
+        done
+        let i=i+4
+    done
+}
+
+
 #MediaLocal
 #echo "############################################"
 #if [ $ubuntuVersion == '16.04' ];then
@@ -173,6 +189,6 @@ function MediaLocal()
 ######################
 #GoogleDriveDownload
 #checkversion
-gitsync
-CheckOpenJdk
-Sync_CTSUI
+waiting & gitsync 2>log.txt 1>>log.txt
+waiting & CheckOpenJdk 2>log.txt 1>>log.txt
+waiting & Sync_CTSUI 2>log.txt 1>>log.txt
