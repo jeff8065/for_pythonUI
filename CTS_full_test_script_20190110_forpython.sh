@@ -273,11 +273,12 @@ function CtsSettings(){
 function CopyApks(){
 
 
-	if [ "$androidVersion" == "7.0" ] || [ "$androidVersion" == "7.1" ] || [ "$androidVersion" == "8.0" ] || [ "$androidVersion" == "8.1" ] || [ "$androidVersion" == "9.0"|| [ "$androidVersion" == "10" ]|| [ "$androidVersion" == "11" ] ;then
+	if [ "$androidVersion" == "7.0" ] || [ "$androidVersion" == "7.1" ] || [ "$androidVersion" == "8.0" ] || [ "$androidVersion" == "8.1" ] || [ "$androidVersion" == "9.0" ] || [ "$androidVersion" == "10" ]|| [ "$androidVersion" == "11" ] ;then
 	echo " "
 
 	else
 	echo "*********************************************Copy CTS DEVICE ADMIN APK********************************************"
+	echo $androidVersion
 		for((i=0;i<countDevice;i=i+1))
 		do
 			adb -s ${serialArray[$i]} install  -r /3pl_report/cts/$toolVersion/$brand/$name/android-cts/repository/testcases/CtsDeviceAdmin.apk 
@@ -531,7 +532,7 @@ if  [ $devicespace -gt $media1920 ] ;then
 	echo $devicespace
 
 		
-	cd /CTS_tool/Media/android-cts-media-1.4
+	cd /CTS_tool/Media/android-cts-media-1.5
 
 	for((i=1;i<countDevice;i=i+1))
 		do
@@ -543,7 +544,7 @@ if  [ $devicespace -gt $media1920 ] ;then
 elif [ $devicespace -gt  $media1280 ] ;then
 	echo $devicespace
 	
-cd /CTS_tool/Media/android-cts-media-1.4
+cd /CTS_tool/Media/android-cts-media-1.5
 
 	for((i=1;i<countDevice;i=i+1))
 		do
@@ -551,7 +552,7 @@ cd /CTS_tool/Media/android-cts-media-1.4
 		done
 	x-terminal-emulator -e bash copy_media.sh 1280x720 -s ${serialArray[0]}
 else
-	cd /CTS_tool/Media/android-cts-media-1.4
+	cd /CTS_tool/Media/android-cts-media-1.5
 
 	for((i=1;i<countDevice;i=i+1))
 		do
@@ -593,7 +594,7 @@ function reCopyMedia_function(){
 			echo "device have Media file"
 		else 
 			echo "need to copy"
-			cd /CTS_tool/Media/android-cts-media-1.4
+			cd /CTS_tool/Media/android-cts-media-1.5
 			eval bash copy_media.sh 1920x1080 -s \$serial$j
 		fi
 		done
