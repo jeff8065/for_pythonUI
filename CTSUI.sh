@@ -110,7 +110,7 @@ function Sync_CTSUI()
 	if [ $ubuntuVersion == '18.04' ] ;then
 	echo "1"| sudo pip install virtualenv --upgrade
 	fi
-	python '/CTS_tool/for_pythonUI/CTS1.py'
+
 }
 
 function MediaLocal()
@@ -189,6 +189,8 @@ function waiting()
 ######################
 #GoogleDriveDownload
 #checkversion
+
 waiting & gitsync 2>log.txt 1>>log.txt
 waiting & CheckOpenJdk 2>>log.txt 1>>log.txt
-waiting & Sync_CTSUI 2>>log.txt 
+waiting & Sync_CTSUI 2>>log.txt 1>>log.txt
+python '/CTS_tool/for_pythonUI/CTS1.py'   2>>log.tx
