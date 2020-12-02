@@ -59,7 +59,7 @@ function serialAndToolToArray(){
 			eval version+=("$"versiontool$b)
 			
 			eval echo ${version[$b]}
-			echo ${version[$b]}
+	#		echo ${version[$b]}
 			b=$((b+1))
 		  done		
 		;; 
@@ -67,6 +67,7 @@ function serialAndToolToArray(){
 	        s)
 		  for var in ${OPTARG}
 		  do
+		  echo "device: "
 			eval serial$i="$var"
 			eval serialArray+=("$"serial$i)
 			
@@ -74,7 +75,7 @@ function serialAndToolToArray(){
 			
 			i=$((i+1))
 			countDevice=$i
-			echo $countDevice
+	#		echo $countDevice
 		  done	 
 		;;
 	
@@ -88,7 +89,7 @@ function serialAndToolToArray(){
 		do
 			serial_options+=("-s")
 			eval serial_options+=("$"serial$((i-1)))
-			echo ${serial_options[@]}
+	#		echo ${serial_options[@]}
 			
 		done
 	brand=$(adb -s ${serialArray[$1]} shell getprop | grep ro.vendor.build.fingerprint | sed 's/\[ro.vendor.build.fingerprint]:\ \[//' | sed 's/\/.*//' )
@@ -160,12 +161,12 @@ function compareFingerPrint(){
 	#input finger print
 	#read -p "please input your fingerprint:" fingerPrint
 	fingerPrint=$(adb -s  ${serialArray[$1]} shell getprop | grep "ro.vendor.build.fingerprint" | sed 's/\[ro.vendor.build.fingerprint\]: \[//' | sed 's/\].*//')
-	echo 	$fingerPrint
+	#echo 	$fingerPrint
 	for((i=0;i<countDevice;i=i+1))
 	do
 		#capture device finger print 
 		deviceFingerPrint=$(adb -s  ${serialArray[$i]} shell getprop | grep "ro.vendor.build.fingerprint" | sed 's/\[ro.vendor.build.fingerprint\]: \[//' | sed 's/\].*//')
-		echo 	$deviceFingerPrintp[$i]	
+		#echo 	$deviceFingerPrintp[$i]	
 		if echo $deviceFingerPrint[$i] | grep -ni 'user/release-keys'; then
 			    echo ""
 			else
@@ -252,8 +253,8 @@ function CTSDIRECTORY_python(){
 
 
 
-	echo " "
-	echo '*********************Device information and tool unzip*********************'
+#	echo " "
+	#echo '*********************Device information and tool unzip*********************'
 
 	deviceCpuType=$(adb -s ${serialArray[$1]}  shell getprop | grep "\[ro.product.cpu.abi]:" | sed 's/\[ro.product.cpu.abi]: \[//' | sed 's/arm.*/arm/' | sed 's/\].*//' | sed 's/x86.*/x86/' )
 
@@ -271,13 +272,13 @@ function CTSDIRECTORY_python(){
 	if [ ${androidVersion:0:1} == "9" ];then
 		androidVersion="9.0"
 	fi
-	echo "This device android verision is" $androidVersion
+#	echo "This device android verision is" $androidVersion
 
 
-	echo Folder name is $name
-	echo TooolVersion is $androidVersion
+#	echo Folder name is $name
+#	echo TooolVersion is $androidVersion
 
-	echo "please check your tool version !!!"
+#	echo "please check your tool version !!!"
 
 
 	if [ "${version[0]}" == "VTS" ];then
@@ -336,17 +337,27 @@ function CTSDIRECTORY(){
 
 function ChooseVTSVersion(){
 		
-	echo $androidVersion 
-	echo $cpuType	
-	echo "unzipping..."	
-	echo $toolzip
-	echo "VTS version:" "${version[1]}"
+#	echo $androidVersion 
+#	echo $cpuType	
+	echo "--------------------------"
+	echo "unzipping..."
+
+#	echo $toolzip
+#	echo "VTS version:" "${version[1]}"
 
 	toolzip=$(ls /CTS_tool/VTS/"${version[1]}"/ | grep  $cpuType )
 		
 		mkdir -p "/3pl_report/vts"/"${version[1]}"/"$brand"/"$name"
-		echo 1 | sudo -S update-java-alternatives --set 
-		unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/vts/"${version[1]}"/$brand/$name 
+	echo Folder  :   /3pl_report/vts/"${version[1]}"/$brand/$name
+		echo 1 | sudo -S update-java-alternatives --set java-1.8.0-openjdk-amd64
+	#	unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/vts/"${version[1]}"/$brand/$name 
+	if ! unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/vts/"${version[1]}"/$brand/$name ;then
+		echo "***unzip fail, please check file***"
+		endScript "3"
+	else 
+	 #	mkdir /3pl_report/cts/"${version[1]}"/$brand/$name/android-cts/repository/results
+		echo "***VTS unzip success***"
+	fi
 		
 		nautilus "/3pl_report/vts"/"${version[1]}"/$brand/$name
 		cd "/3pl_report/vts"/"${version[1]}"/$brand/$name/android-vts/tools
@@ -359,32 +370,47 @@ function ChooseVTSVersion(){
 function ChooseGsiaospVersion(){
 		
 
-	echo $androidVersion 
-	echo $cpuType	
+#	echo $androidVersion 
+#	echo $cpuType	
 
 	echo "unzipping..."
 
 	#pwd
 	 toolzip=$( ls /CTS_tool/VTS/"${version[1]}" | grep  "$cpuType" )
-	echo "------------------------------------------------------"
 
-	echo $toolzip
-	echo "GSI version:" "${version[1]}"
-	echo 'CPU:'$cpuType
-        echo toolzip $toolzip
+
+#	echo $toolzip
+#	echo "GSI version:" "${version[1]}"
+#	echo 'CPU:'$cpuType
+#        echo toolzip $toolzip
 	if [ "$androidVersion" = "8.0" ];then
 		mkdir -p /3pl_report/aosp/"${version[1]}"/$brand/$name
-		echo 1 | sudo  update-java-alternatives -s "java-1.8.0-openjdk-amd64"
-		unzip -o -q /CTS_tool/$androidVersion/android-cts-"${version[1]}"-linux_x86-$cpuType.zip -d /3pl_report/aosp/"${version[1]}"/$brand/$name 
-				
+		echo Folder  :   /3pl_report/aosp/"${version[1]}"/$brand/$name
+		echo 1 | sudo -S update-java-alternatives -s "java-1.8.0-openjdk-amd64"
+	#	unzip -o -q /CTS_tool/$androidVersion/android-cts-"${version[1]}"-linux_x86-$cpuType.zip -d /3pl_report/aosp/"${version[1]}"/$brand/$name 
+		if ! unzip -o -q /CTS_tool/$androidVersion/android-cts-"${version[1]}"-linux_x86-$cpuType.zip -d /3pl_report/aosp/"${version[1]}"/$brand/$name ;then
+		echo "***unzip fail, please check file***"
+		endScript "3"
+	else 
+	#	mkdir /3pl_report/aosp/"${version[1]}"/$brand/$name/android-cts/repository/results
+		echo "***CTS-ON-GSI unzip success***"
+	fi			
 #/CTS_tool/8.0/$toolVersion/$toolzip		
 		CopyMedia 
 		rungsiaosp
 		
 	else 
 		mkdir -p /3pl_report/aosp/"${version[1]}"/"$brand"/"$name"
-		echo 1 | sudo  update-java-alternatives -s "java-1.8.0-openjdk-amd64"
-		unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/aosp/"${version[1]}"/$brand/$name 
+		echo Folder  :   /3pl_report/aosp/"${version[1]}"/$brand/$name
+		echo 1 | sudo -S update-java-alternatives -s "java-1.8.0-openjdk-amd64"
+		#unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/aosp/"${version[1]}"/$brand/$name 
+		if ! unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/aosp/"${version[1]}"/$brand/$name ;then
+		echo "***unzip fail, please check file***"
+		endScript "3"
+	else 
+	#	mkdir /3pl_report/aosp/"${version[1]}"/$brand/$name/android-vts/repository/results
+		echo "***CTS-ON-GSI unzip success***"		
+		fi
 		CopyMedia 
 		rungsiaosp
 	#elif [ "$androidVersion" = "9.0" ];then
@@ -445,7 +471,6 @@ serialAndToolToArray "$@"
 compareFingerPrint
 #CTSDIRECTORY
 CTSDIRECTORY_python
-
 
 
 
