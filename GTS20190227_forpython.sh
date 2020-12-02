@@ -29,6 +29,7 @@ function serialAndToolToArray(){
 	        s)
 		  for var in ${OPTARG}
 		  do
+		  echo "device: "
 			eval serial$i="$var"
 			eval serialArray+=("$"serial$i)
 			
@@ -36,7 +37,7 @@ function serialAndToolToArray(){
 			
 			i=$((i+1))
 			countDevice=$i
-			echo $countDevice
+		#	echo $countDevice
 		  done	 
 		;;
 
@@ -61,7 +62,7 @@ function serialAndToolToArray(){
 		do
 			serial_options+=("-s")
 			eval serial_options+=("$"serial$((i-1)))
-			echo ${serial_options[@]}
+		#	echo ${serial_options[@]}
 			
 		done
 	brand=$(adb -s ${serialArray[$1]} shell getprop ro.product.brand | sed 's/\r//' )
@@ -202,9 +203,10 @@ function ChooseVersion(){
 	#	adb -s $serialID shell dumpsys appwidget >> /GTS_tool/3PL/6.0r3/$brand/$name/android-xts/tools/"$name"widget
 		#adb $serial_option shell am start -a android.intent.action.CALL -d tel:6767
 	elif [ "$version" == "8.0r1" ];then
-		echo $brand
-		echo $name
+	#	echo $brand
+	#	echo $name
 		mkdir -p "/3pl_report"/gts/8.0r1/$brand/$name
+		echo Folder  :   "/3pl_report"/gts/8.0r1/$brand/$name/$brand/$name
 		compareFingerPrint
 		#echo "/CTS_tool/GTS_tool/8.0_r1 Preview/android-gts-8-R1\(O-Q\)-6720564.zip"
 		unzip -o -q /CTS_tool/GTS_tool/"8.0_r1 Formal"/"android-gts-8-R1(O-Q)-6720564.zip" -d "/3pl_report"/gts/8.0r1/$brand/$name
@@ -219,7 +221,7 @@ function compareFingerPrint(){
 	#input finger print
 	#read -p "please input your fingerprint:" fingerPrint
 	fingerPrint=$(adb -s  ${serialArray[$1]} shell getprop | grep "\[ro.build.fingerprint\]" | sed 's/\[ro.build.fingerprint\]: \[//' | sed 's/\].*//')
-	echo 	$fingerPrint
+#	echo 	$fingerPrint
 	for((i=0;i<countDevice;i=i+1))
 	do
 		#capture device finger print 
@@ -322,10 +324,4 @@ ChooseVersion
 
 
 runGTS
-
-
-
-
-
-
 
