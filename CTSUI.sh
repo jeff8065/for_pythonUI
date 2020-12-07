@@ -193,4 +193,4 @@ function waiting()
 waiting & gitsync 2>log.txt 1>>log.txt
 waiting & CheckOpenJdk 2>>log.txt 1>>log.txt
 waiting & Sync_CTSUI 2>>log.txt 1>>log.txt
-python '/CTS_tool/for_pythonUI/CTS1.py'   2>>log.tx
+python '/CTS_tool/for_pythonUI/CTS1.py'   2>>log.txt
