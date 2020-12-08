@@ -85,9 +85,10 @@ function CheckOpenJdk()
 		echo "1"| sudo -S  apt -y install openjdk-11-jdk
 		fi
 		if [ "$opjdk9" == "" ];then
-		echo "install openjdk-9 ...." 0>>log.txt
+		echo "install openjdk-9 ...."
+		rm -rf openjdk-9-jre-headless_9~b114-0ubuntu1_amd64.deb
 		wget --no-check-certificate "http://mirrors.kernel.org/ubuntu/pool/universe/o/openjdk-9/openjdk-9-jre-headless_9~b114-0ubuntu1_amd64.deb"
-		sudo dpkg -i 'openjdk-9-jre-headless_9~b114-0ubuntu1_amd64.deb'
+		sudo dpkg -i 'openjdk-9-jre-headless_9~b114-0ubuntu1_amd64.deb'  
 
 		fi
 	elif [ $ubuntuVersion == '14.04' ] ;then
@@ -198,6 +199,6 @@ function waiting()
 #checkversion
 
 waiting & gitsync 2>log.txt 1>>log.txt
-waiting & CheckOpenJdk 2>>log.txt 1>>log.txt
+waiting & CheckOpenJdk 2>>log.txt #1>>log.txt
 waiting & Sync_CTSUI 2>>log.txt 1>>log.txt
 python '/CTS_tool/for_pythonUI/CTS1.py'   2>>log.txt
