@@ -369,37 +369,32 @@ function ChooseVTSVersion(){
 
 function ChooseGsiaospVersion(){
 		
-
 #	echo $androidVersion 
 #	echo $cpuType	
 
 	echo "unzipping..."
 
-	#pwd
-	 toolzip=$( ls /CTS_tool/VTS/"${version[1]}" | grep  "$cpuType" )
-
-
+#	pwd
+#	 toolzip=$( ls /CTS_tool/VTS/"${version[1]}" | grep  "$cpuType" )
 #	echo $toolzip
 #	echo "GSI version:" "${version[1]}"
 #	echo 'CPU:'$cpuType
 #        echo toolzip $toolzip
-	if [ "$androidVersion" = "8.0" ];then
+
+	if [ "$androidVersion" = "8.0" ]|| [ "$androidVersion" = "11"  ];then
 		mkdir -p /3pl_report/aosp/"${version[1]}"/$brand/$name
 		echo Folder  :   /3pl_report/aosp/"${version[1]}"/$brand/$name
-		echo 1 | sudo -S update-java-alternatives -s "java-1.8.0-openjdk-amd64"
-	#	unzip -o -q /CTS_tool/$androidVersion/android-cts-"${version[1]}"-linux_x86-$cpuType.zip -d /3pl_report/aosp/"${version[1]}"/$brand/$name 
+		
 		if ! unzip -o -q /CTS_tool/$androidVersion/android-cts-"${version[1]}"-linux_x86-$cpuType.zip -d /3pl_report/aosp/"${version[1]}"/$brand/$name ;then
 		echo "***unzip fail, please check file***"
 		endScript "3"
-	else 
-	#	mkdir /3pl_report/aosp/"${version[1]}"/$brand/$name/android-cts/repository/results
-		echo "***CTS-ON-GSI unzip success***"
-	fi			
-#/CTS_tool/8.0/$toolVersion/$toolzip		
-		CopyMedia 
-		rungsiaosp
 		
-	else 
+		else 
+		echo "***CTS-ON-GSI unzip success***"
+		fi
+	
+		
+	else
 		mkdir -p /3pl_report/aosp/"${version[1]}"/"$brand"/"$name"
 		echo Folder  :   /3pl_report/aosp/"${version[1]}"/$brand/$name
 		echo 1 | sudo -S update-java-alternatives -s "java-1.8.0-openjdk-amd64"
@@ -407,26 +402,14 @@ function ChooseGsiaospVersion(){
 		if ! unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/aosp/"${version[1]}"/$brand/$name ;then
 		echo "***unzip fail, please check file***"
 		endScript "3"
-	else 
-	#	mkdir /3pl_report/aosp/"${version[1]}"/$brand/$name/android-vts/repository/results
+		else 
+
 		echo "***CTS-ON-GSI unzip success***"		
 		fi
+
+	fi
 		CopyMedia 
 		rungsiaosp
-	#elif [ "$androidVersion" = "9.0" ];then
-	#	nautilus /3pl_report/aosp/$toolVersion/$brand/$name
-	#	mkdir -p "/3pl_report/aosp/"$toolVersion"/"$brand"/"$name
-	#	echo /CTS_tool/VTS/$toolVersion/$toolzip
-	#	unzip -o -q /CTS_tool/VTS/$toolVersion/$toolzip -d /3pl_report/aosp/$toolVersion/$brand/$name 
-	#	CopyMedia 
-	#	rungsiaosp
-		
-	fi
-
-
-
-
-
 
 }
 
