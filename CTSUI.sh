@@ -197,7 +197,7 @@ function waiting()
 ######################
 #GoogleDriveDownload
 #checkversion
-
+rm -rf log.txt
 waiting & gitsync 2>log.txt 1>>log.txt
 waiting & CheckOpenJdk 2>>log.txt #1>>log.txt
 waiting & Sync_CTSUI 2>>log.txt 1>>log.txt
