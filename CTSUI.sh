@@ -80,8 +80,14 @@ function CheckOpenJdk()
 {
 	if [ $ubuntuVersion == '18.04' ] || [ $ubuntuVersion == '16.04' ] ;then
 	opjdk11=$(update-java-alternatives -l | grep java-1.11.0-openjdk-amd64)
+	opjdk9=$(update-java-alternatives -l | grep java-1.9.0-openjdk-amd64)
 		if [ "$opjdk11" == "" ];then
 		echo "1"| sudo -S  apt -y install openjdk-11-jdk
+		if [ "$opjdk9" == "" ];then
+		echo "install openjdk-9 ...." 0>>log.txt
+		wget --no-check-certificate "http://mirrors.kernel.org/ubuntu/pool/universe/o/openjdk-9/openjdk-9-jre-headless_9~b114-0ubuntu1_amd64.deb"
+		sudo dpkg -i 'openjdk-9-jre-headless_9~b114-0ubuntu1_amd64.deb'
+
 		fi
 	elif [ $ubuntuVersion == '14.04' ] ;then
 	opjdk11=$(update-java-alternatives -l | grep java-1.11.0-openjdk-amd64)
