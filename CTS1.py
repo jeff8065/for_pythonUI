@@ -212,6 +212,7 @@ class MyFirstGUI:
 			jdk="1.11.0"
 		sample =("echo 1 | sudo -S update-java-alternatives --set java-"+str(jdk)+"-openjdk-amd64")
 		subprocess.Popen(sample, shell=True)
+		self.mesListbox.insert(END,"JDK Version :" + jdk +"\n")
 
 	def AutoSetup(self):
 
