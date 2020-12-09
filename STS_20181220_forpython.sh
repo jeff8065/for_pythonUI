@@ -95,6 +95,8 @@ function STSDIRECTORY(){
 		toolVersion='9.0'
 	elif [ $androidVersion == "10" ];then
 		toolVersion='10.0'
+	elif [ $androidVersion == "11" ];then
+		toolVersion='11.0'
 	fi
 	
 	mainVersion=$(echo $toolVersion | cut -d "." -f 1)
@@ -127,7 +129,7 @@ function STSDIRECTORY(){
 		unzip $zip_name 
 	fi
 
-	if [ $mainVersion == '8' ] || [ $mainVersion == "9" ] || [ $mainVersion == "10" ];then
+	if [ $mainVersion == '8' ] || [ $mainVersion == "9" ] || [ $mainVersion == "10" ] || [ $mainVersion == "11" ];then
 		unzip  -P sts -o -q '/CTS_tool/STS/'$security_y'-'$security_m'/'$forder_name'android-sts-'$toolVersion'_'$testToolVersion-linux-$cpuType$abiType.zip -d /3pl_report/sts/$testToolVersion/$toolVersion/$brand/$name
 #	elif [ $mainVersion == "8" ];then
 #	cd /CTS_tool/STS/2020-02
@@ -157,7 +159,13 @@ function STS(){
 	echo " "
 	cd /3pl_report/sts/$testToolVersion/$toolVersion/$brand/$name/android-sts/tools
 
-	if [ $mainVersion == '8' ] || [ $mainVersion == '9' ] || [ $mainVersion == "10" ];then
+	if [ $mainVersion == '11' ];then
+	echo $password | sudo -S update-java-alternatives --set java-1.9.0-openjdk-amd64
+	else 
+	echo $password | sudo -S update-java-alternatives --set java-1.8.0-openjdk-amd64
+	if
+
+	if [ $mainVersion == '8' ] || [ $mainVersion == '9' ] || [ $mainVersion == "10" ]|| [ $mainVersion == "11" ];then
 		if [ $buildType == "user" ];then
 		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-userbuild -s ${serialArray[$1]} 
 		else
@@ -220,4 +228,3 @@ serialAndToolToArray "$@"
 STSDIRECTORY
 nautilus  /3pl_report/sts/$testToolVersion/$toolVersion/$brand/$name/android-sts/tools
 STS
-
