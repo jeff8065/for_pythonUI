@@ -349,7 +349,7 @@ function ChooseVTSVersion(){
 		
 		mkdir -p "/3pl_report/vts"/"${version[1]}"/"$brand"/"$name"
 	echo Folder  :   /3pl_report/vts/"${version[1]}"/$brand/$name
-		echo 1 | sudo -S update-java-alternatives --set java-1.8.0-openjdk-amd64
+
 	#	unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/vts/"${version[1]}"/$brand/$name 
 	if ! unzip -o -q /CTS_tool/VTS/"${version[1]}"/$toolzip -d /3pl_report/vts/"${version[1]}"/$brand/$name ;then
 		echo "***unzip fail, please check file***"
@@ -361,6 +361,11 @@ function ChooseVTSVersion(){
 		
 		nautilus "/3pl_report/vts"/"${version[1]}"/$brand/$name
 		cd "/3pl_report/vts"/"${version[1]}"/$brand/$name/android-vts/tools
+		if  [ "$androidVersion" = "11"  ];then
+		echo 1 | sudo -S update-java-alternatives -s "java-1.9.0-openjdk-amd64"
+		else
+		echo 1 | sudo -S update-java-alternatives -s "java-1.8.0-openjdk-amd64"
+		fi
 		x-terminal-emulator -T $name"_VTS_""${version[1]}"  -e  ./vts-tradefed run vts ${serial_options[@]}  --shard-count   $countDevice 
 
 
