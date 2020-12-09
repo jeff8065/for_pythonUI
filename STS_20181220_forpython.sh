@@ -163,8 +163,8 @@ function STS(){
 	echo $password | sudo -S update-java-alternatives --set java-1.9.0-openjdk-amd64
 	else 
 	echo $password | sudo -S update-java-alternatives --set java-1.8.0-openjdk-amd64
-	if
-
+	
+	fi
 	if [ $mainVersion == '8' ] || [ $mainVersion == '9' ] || [ $mainVersion == "10" ]|| [ $mainVersion == "11" ];then
 		if [ $buildType == "user" ];then
 		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-userbuild -s ${serialArray[$1]} 
