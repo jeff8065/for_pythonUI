@@ -187,13 +187,31 @@ class MyFirstGUI:
 		self.Wificomboxlist.current(0)
 		self.Wificomboxlist.place(x=802, y=230, height=20, width=90)
 
+		self.javacomboxlist = ttk.Combobox(master)
+		self.javacomboxlist["values"]=("JDK_8","JDK_9","JDK_11")
+		self.javacomboxlist.current(0)
+		self.javacomboxlist.place(x=452, y=330, height=20, width=70)
+
+		self.gpsButton =Button (master, command=self.javaversion)
+		self.gpsButton.place(x=519, y=330, height=28, width=52)
+		self.gpsButton.configure(text='''java''')
   
 
 		#self.mesmessagebox = messagebox( master )
 	def hit_me():
 		print("12345")
 		print(tk.messagebox.askquestion(title='Hi', message='hahahaha'))
-
+		
+	def javaversion(self):
+		javacomboxlist = str(self.javacomboxlist.get())
+		if javacomboxlist == "JDK_8":
+			jdk="1.8.0"		
+		elif javacomboxlist == "JDK_9":
+			jdk="1.9.0"
+		elif javacomboxlist == "JDK_11":
+			jdk="1.11.0"
+		sample =("echo 1 | sudo -S update-java-alternatives --set java-"+str(jdk)+"-openjdk-amd64")
+		subprocess.Popen(sample, shell=True)
 
 	def AutoSetup(self):
 
