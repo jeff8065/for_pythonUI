@@ -380,7 +380,7 @@ function ChooseGsiaospVersion(){
 	echo "unzipping..."
 
 #	pwd
-#	 toolzip=$( ls /CTS_tool/VTS/"${version[1]}" | grep  "$cpuType" )
+	 toolzip=$( ls /CTS_tool/VTS/"${version[1]}" | grep  "$cpuType" )
 #	echo $toolzip
 #	echo "GSI version:" "${version[1]}"
 #	echo 'CPU:'$cpuType
