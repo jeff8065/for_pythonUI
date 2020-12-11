@@ -482,7 +482,7 @@ class MyFirstGUI:
 		elif sdk == "25": #7.1
 			itemsforlistbox=['GTS-7.0r2- ']
 		else:
-			itemsforlistbox=['GTS-7.0r4- ','GTS-7.0r5- ','GTS-8.0r1- ']
+			itemsforlistbox=['GTS-7.0r5- ','GTS-8.0r1- ','GTS-8.0r2- ']
 		self.versionListbox.delete(0, 15)
 	#	self.mesListbox.insert(END,'GTS')
 		for i in range (len(itemsforlistbox)):
