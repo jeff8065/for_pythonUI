@@ -305,7 +305,7 @@ function runGTS(){
 		nautilus "/3pl_report"/gts/8.0r1/$brand/$name/android-gts/tools
 		cd "/3pl_report"/gts/8.0r1/$brand/$name/android-gts/tools
 		x-terminal-emulator -T $name"_GTS_"$version -e ./gts-tradefed run gts --shard-count $countDevice ${serial_options[@]} $GTSMediaLocal
-	elif [ "$version"  == "8.0r21" ];then
+	elif [ "$version"  == "8.0r2" ];then
 		nautilus "/3pl_report"/gts/8.0r2/$brand/$name/android-gts/tools
 		cd "/3pl_report"/gts/8.0r2/$brand/$name/android-gts/tools
 		x-terminal-emulator -T $name"_GTS_"$version -e ./gts-tradefed run gts --shard-count $countDevice ${serial_options[@]} $GTSMediaLocal
