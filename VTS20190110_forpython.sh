@@ -271,7 +271,7 @@ function CTSDIRECTORY_python(){
 	androidVersion=$(adb -s ${serialArray[$1]} shell getprop | grep "\[ro.build.version.release\]" | sed 's/\[ro.build.version.release\]: \[//' | sed 's/8.0.*/8.0/' | sed 's/8.1.*/8.1/' | sed 's/9.0.*/9.0/' | sed 's/10.0.*/10/' | sed 's/11.0.*/11/'  )
 	if [ ${androidVersion:0:1} == "9" ];then
 		androidVersion="9.0"
-	elif [ ${androidVersion:0:1} == '11]' ];then
+	elif [ ${androidVersion:0} == '11]' ];then
 		androidVersion="11"
 	fi
 #	echo "This device android verision is" $androidVersion
@@ -438,6 +438,13 @@ function rungsiaosp(){
 		cd /3pl_report/aosp/"${version[1]}"/$brand/$name/android-vts/tools
 
 		x-terminal-emulator -T $name"_CTS-ON-GSI_""${version[1]}" -e ./vts-tradefed run cts-on-gsi   ${serial_options[@]} --shard-count $countDevice  --skip-preconditions --module-arg CtsMediaTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaStressTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaBitstreamsTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5
+
+	elif [ $androidVersion == "11" ] ;then
+		nautilus /3pl_report/aosp/"${version[1]}"/$brand/$name
+		cd /3pl_report/aosp/"${version[1]}"/$brand/$name/android-cts/tools
+
+		x-terminal-emulator -T $name"_CTS-ON-GSI_""${version[1]}" -e ./cts-tradefed run cts-on-gsi   ${serial_options[@]} --shard-count $countDevice --module-arg CtsMediaTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaStressTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5 \--module-arg CtsMediaBitstreamsTestCases:local-media-path:/CTS_tool/Media/android-cts-media-1.5
+
 	else
 		nautilus /3pl_report/aosp/"${version[1]}"/$brand/$name
 		cd /3pl_report/aosp/"${version[1]}"/$brand/$name/android-vts/tools
