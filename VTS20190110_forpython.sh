@@ -388,7 +388,7 @@ function ChooseGsiaospVersion(){
 #	echo 'CPU:'$cpuType
 #        echo toolzip $toolzip
 
-	if [ "$androidVersion" = "8.0" ]|| [ "$androidVersion" = "11"  ];then
+	if [ "$androidVersion" = "8.0" ]|| [ "$androidVersion" = "11"  ]|| [ "$androidVersion" = "11]"  ];then
 		mkdir -p /3pl_report/aosp/"${version[1]}"/$brand/$name
 		echo Folder  :   /3pl_report/aosp/"${version[1]}"/$brand/$name
 		
