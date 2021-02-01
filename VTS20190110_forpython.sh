@@ -271,6 +271,8 @@ function CTSDIRECTORY_python(){
 	androidVersion=$(adb -s ${serialArray[$1]} shell getprop | grep "\[ro.build.version.release\]" | sed 's/\[ro.build.version.release\]: \[//' | sed 's/8.0.*/8.0/' | sed 's/8.1.*/8.1/' | sed 's/9.0.*/9.0/' | sed 's/10.0.*/10/' | sed 's/11.0.*/11/'  )
 	if [ ${androidVersion:0:1} == "9" ];then
 		androidVersion="9.0"
+	elif [ ${androidVersion:0:1} == "11]" ];then
+		androidVersion="11"
 	fi
 #	echo "This device android verision is" $androidVersion
 
