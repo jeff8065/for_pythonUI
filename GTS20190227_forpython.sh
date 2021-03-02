@@ -209,7 +209,7 @@ function ChooseVersion(){
 		echo Folder  :   "/3pl_report"/gts/8.0r3/$brand/$name/$brand/$name
 		compareFingerPrint
 		#echo "/CTS_tool/GTS_tool/8.0_r1 Preview/android-gts-8-R1\(O-Q\)-6720564.zip"
-		unzip -o -q /CTS_tool/GTS_tool/"android-gts-8-R3(8-10)-7133222.zip" -d "/3pl_report"/gts/8.0r3/$brand/$name
+		unzip -o -q /CTS_tool/GTS_tool//8.0_r3/"android-gts-8-R3(8-10)-7133222.zip" -d "/3pl_report"/gts/8.0r3/$brand/$name
 		echo $password | sudo -S update-java-alternatives --set java-1.11.0-openjdk-amd64
 		#adb -s $serialID shell dumpsys appwidget >> /GTS_tool/3PL/5.1r2/$brand/$name/android-gts/tools/"$name"widget
 		#adb $serial_options shell am start -a android.intent.action.CALL -d tel:6767
