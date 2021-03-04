@@ -436,7 +436,11 @@ class MyFirstGUI:
 		elif str(selectToolVersion.split("-",)[0]) == "INSTANT":
 			serialCommand =["/CTS_tool/for_pythonUI/INSTANT_20181220_forpython.sh"]
 		elif str(selectToolVersion.split("-",)[0]) == "STS":
-			ToolVersion= ""
+			if selectToolVersion.split("-",)[1] == "v7a":
+				ToolVersion= " -v " + selectToolVersion.split("-",)[1]
+			else:
+				ToolVersion= ""
+			
 			serialCommand =["/CTS_tool/for_pythonUI/STS_20181220_forpython.sh"]
 		self.AutoSetup()
 		time.sleep(5)
@@ -520,7 +524,7 @@ class MyFirstGUI:
 			self.versionListbox.insert(i, itemsforlistbox[i])
 
 	def STS(self):
-		itemsforlistbox=['STS- ']
+		itemsforlistbox=['STS- ','STS-v7a']
 		self.versionListbox.delete(0, 15)
 		#self.mesListbox.insert(END,'STS')
 		for i in range (len(itemsforlistbox)):
