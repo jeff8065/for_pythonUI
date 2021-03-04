@@ -18,6 +18,12 @@ function serialAndToolToArray(){
 			eval version+=("$"versiontool$b)
 			
 			eval echo ${version[$b]}
+			version=${version[$b]}
+			if [ $version == 'v7a' ];then
+			runabi=$"--abi armeabi-v7a"
+			else
+			runabi=$''
+			fi
 			b=$((b+1))
 		  done		
 		;; 
@@ -167,16 +173,16 @@ function STS(){
 	fi
 	if [ $mainVersion == '8' ] || [ $mainVersion == '9' ] || [ $mainVersion == "10" ]|| [ $mainVersion == "11" ];then
 		if [ $buildType == "user" ];then
-		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-userbuild -s ${serialArray[$1]} 
+		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-userbuild -s ${serialArray[$1]} $runabi
 		else
-		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-engbuild -s ${serialArray[$1]} 
+		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-engbuild -s ${serialArray[$1]} $runabi
 		fi
 
 	elif [ $mainVersion == "7" ] ||[ $mainVersion == "7.0" ] ;then #|| [ $mainVersion == '8' ] ;then
 		if [ $buildType == "user" ];then
-		x-terminal-emulator -T $name"_STS_"$testToolVersion -e  ./sts-tradefed  run sts-userbuild-no-spl-lock -s ${serialArray[$1]} 
+		x-terminal-emulator -T $name"_STS_"$testToolVersion -e  ./sts-tradefed  run sts-userbuild-no-spl-lock -s ${serialArray[$1]} $runabi
 		else
-		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-engbuild-no-spl-lock -s ${serialArray[$1]} 
+		x-terminal-emulator -T $name"_STS_"$testToolVersion -e	./sts-tradefed run sts-engbuild-no-spl-lock -s ${serialArray[$1]} $runabi
 		fi
 	fi 
 
