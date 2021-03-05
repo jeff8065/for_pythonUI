@@ -517,7 +517,7 @@ class MyFirstGUI:
 		elif sdk == "29": #10.0
 			itemsforlistbox=['GSI-10_r6','GSI-10_r7']
 		elif sdk == "30": #11.0
-			itemsforlistbox=['GSI-11_r2']
+			itemsforlistbox=['GSI-11_r2','GSI-11_r3']
 		elif sdk == "26": #8.0
 			itemsforlistbox=['GSI-8.0_r24','GSI-8.0_r25']
 		for i in range (len(itemsforlistbox)):
