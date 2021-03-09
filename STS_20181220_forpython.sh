@@ -4,6 +4,7 @@
 
 i=0
 b=0
+password=1
 function serialAndToolToArray(){
 	
 	while getopts "v:s:" option
