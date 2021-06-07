@@ -453,13 +453,13 @@ class MyFirstGUI:
 	def CTS(self):
 		self.versionListbox.delete(0, 15)	
 		if sdk == "27": #8.1
-			itemsforlistbox=['CTS-8.1_r21','CTS-8.1_r22']
+			itemsforlistbox=['CTS-8.1_r21','CTS-8.1_r22','CTS-8.1_r23']
 		elif sdk == "30": #11.0
-			itemsforlistbox=['CTS-11_r2','CTS-11_r3']
+			itemsforlistbox=['CTS-11_r2','CTS-11_r3','CTS-11_r4']
 		elif sdk == "29": #10.0
-			itemsforlistbox=['CTS-10_r6','CTS-10_r7']
+			itemsforlistbox=['CTS-10_r6','CTS-10_r7','CTS-10_r8']
 		elif sdk == "28": #9.0
-			itemsforlistbox=['CTS-9.0_r14','CTS-9.0_r15']
+			itemsforlistbox=['CTS-9.0_r14','CTS-9.0_r15','CTS-9.0_r15']
 		elif sdk == "26": #8.0
 			itemsforlistbox=['CTS-8.0_r25','CTS-8.0_r26']
 		elif sdk == "25": #7.1
@@ -486,7 +486,7 @@ class MyFirstGUI:
 		elif sdk == "25": #7.1
 			itemsforlistbox=['GTS-7.0r2- ']
 		else:
-			itemsforlistbox=['GTS-7.0r5- ','GTS-8.0r2- ','GTS-8.0r3- ']
+			itemsforlistbox=['GTS-7.0r5- ','GTS-8.0r2- ','GTS-8.0r3- ','GTS-8.0r4- ']
 		self.versionListbox.delete(0, 15)
 	#	self.mesListbox.insert(END,'GTS')
 		for i in range (len(itemsforlistbox)):
@@ -513,13 +513,13 @@ class MyFirstGUI:
 		if sdk == "27": #8.1
 			itemsforlistbox=['GSI-8.1_r14','GSI-8.1_r15']
 		elif sdk == "28": #9.0
-			itemsforlistbox=['GSI-9.0_r15','GSI-9.0_r16']
+			itemsforlistbox=['GSI-9.0_r15','GSI-9.0_r16','GSI-9.0_r17']
 		elif sdk == "29": #10.0
-			itemsforlistbox=['GSI-10_r6','GSI-10_r7']
+			itemsforlistbox=['GSI-10_r6','GSI-10_r7','GSI-10_r8']
 		elif sdk == "30": #11.0
-			itemsforlistbox=['GSI-11_r2','GSI-11_r3']
+			itemsforlistbox=['GSI-11_r2','GSI-11_r3','GSI-11_r4']
 		elif sdk == "26": #8.0
-			itemsforlistbox=['GSI-8.0_r24','GSI-8.0_r25']
+			itemsforlistbox=['GSI-8.0_r24','GSI-8.0_r25','GSI-8.0_r26']
 		for i in range (len(itemsforlistbox)):
 			self.versionListbox.insert(i, itemsforlistbox[i])
 
@@ -531,7 +531,7 @@ class MyFirstGUI:
 			self.versionListbox.insert(i, itemsforlistbox[i])
 	def INSTANT(self):
 		if sdk == "28": #9.0
-			itemsforlistbox=['INSTANT-9.0_r14','INSTANT-9.0_r15']
+			itemsforlistbox=['INSTANT-9.0_r14','INSTANT-9.0_r15','INSTANT-9.0_r16']
 		self.versionListbox.delete(0, 15)
 		for i in range (len(itemsforlistbox)):
 			self.versionListbox.insert(i, itemsforlistbox[i])
