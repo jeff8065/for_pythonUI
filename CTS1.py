@@ -497,11 +497,11 @@ class MyFirstGUI:
 		if sdk == "27": #8.1
 			itemsforlistbox=['VTS-8.1_r14','VTS-8.1_r15']
 		elif sdk == "28": #9.0
-			itemsforlistbox=['VTS-9.0_r15','VTS-9.0_r16']
+			itemsforlistbox=['VTS-9.0_r15','VTS-9.0_r16','VTS-9.0_r17']
 		elif sdk == "30": #11.0
-			itemsforlistbox=['VTS-11_r2','VTS-11_r3']
+			itemsforlistbox=['VTS-11_r2','VTS-11_r3','VTS-11_r4']
 		elif sdk == "29": #10.0
-			itemsforlistbox=['VTS-10_r6','VTS-10_r7']
+			itemsforlistbox=['VTS-10_r6','VTS-10_r7','VTS-10_r8']
 		elif sdk == "26": #8.0
 			itemsforlistbox=['VTS-8.0_r25','VTS-8.0_r26']
 		for i in range (len(itemsforlistbox)):
