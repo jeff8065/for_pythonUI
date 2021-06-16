@@ -213,6 +213,19 @@ function ChooseVersion(){
 		echo $password | sudo -S update-java-alternatives --set java-1.11.0-openjdk-amd64
 		#adb -s $serialID shell dumpsys appwidget >> /GTS_tool/3PL/5.1r2/$brand/$name/android-gts/tools/"$name"widget
 		#adb $serial_options shell am start -a android.intent.action.CALL -d tel:6767
+
+	elif [ "$version" == "8.0r4" ];then
+	#	echo $brand
+	#	echo $name
+		mkdir -p "/3pl_report"/gts/8.0r4/$brand/$name
+		echo Folder  :   "/3pl_report"/gts/8.0r4/$brand/$name/$brand/$name
+		compareFingerPrint
+		#echo "/CTS_tool/GTS_tool/8.0_r1 Preview/android-gts-8-R1\(O-Q\)-6720564.zip"
+		unzip -o -q /CTS_tool/GTS_tool//8.0_r4/"android-gts-8-R4(8.1-10)-7380330.zip" -d "/3pl_report"/gts/8.0r4/$brand/$name
+		echo $password | sudo -S update-java-alternatives --set java-1.11.0-openjdk-amd64
+		#adb -s $serialID shell dumpsys appwidget >> /GTS_tool/3PL/5.1r2/$brand/$name/android-gts/tools/"$name"widget
+		#adb $serial_options shell am start -a android.intent.action.CALL -d tel:6767
+		
 	elif [ "$version" == "8.0r2" ];then
 	#	echo $brand
 	#	echo $name
@@ -305,6 +318,12 @@ function runGTS(){
 		nautilus "/3pl_report"/gts/8.0r3/$brand/$name/android-gts/tools
 		cd "/3pl_report"/gts/8.0r3/$brand/$name/android-gts/tools
 		x-terminal-emulator -T $name"_GTS_"$version -e ./gts-tradefed run gts --shard-count $countDevice ${serial_options[@]} $GTSMediaLocal
+
+	elif [ "$version"  == "8.0r4" ];then
+		nautilus "/3pl_report"/gts/8.0r4/$brand/$name/android-gts/tools
+		cd "/3pl_report"/gts/8.0r4/$brand/$name/android-gts/tools
+		x-terminal-emulator -T $name"_GTS_"$version -e ./gts-tradefed run gts --shard-count $countDevice ${serial_options[@]} $GTSMediaLocal
+		
 	elif [ "$version"  == "8.0r2" ];then
 		nautilus "/3pl_report"/gts/8.0r2/$brand/$name/android-gts/tools
 		cd "/3pl_report"/gts/8.0r2/$brand/$name/android-gts/tools
