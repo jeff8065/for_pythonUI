@@ -463,7 +463,7 @@ function changeJavaVersion(){
 			echo $password | sudo -S update-java-alternatives --set java-1.8.0-openjdk-amd64
 		fi
 	elif [ "$device_Java_Version" == "11" ];then
-		if [ "$now_PC_JavaVersion" != "1.11" ];then
+		if [ "$now_PC_JavaVersion" != "11." ];then
 			echo "Change java version to 1.11	"
 			echo $password | sudo -S update-java-alternatives --set java-1.11.0-openjdk-amd64
 		fi
